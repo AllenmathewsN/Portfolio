@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Writing Portfolio</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+    }
+    header {
+      background: #1f2937;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .tabs {
+      display: flex;
+      overflow-x: auto;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .tab-button {
+      background: #e2e8f0;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      cursor: pointer;
+    }
+    .tab-button.active {
+      background: #2563eb;
+      color: white;
+    }
+    .cards {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.2s ease;
+    }
+    .card:hover {
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .card-summary {
+      margin-top: 0.5rem;
+      color: #4b5563;
+    }
+    .card-category {
+      font-size: 0.875rem;
+      text-align: right;
+      margin-top: 0.5rem;
+      color: #9ca3af;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Writing Portfolio</h1>
+  </header>
+
+  <div class="container">
+    <div class="tabs" id="tabs"></div>
+    <div class="cards" id="cards"></div>
+  </div>
+
+  <script>
+    const articles = [
+      { title: "The Psychology of Everyday Decisions", category: "Psychology", summary: "Explore the subtle science behind how we make choices." },
+      { title: "How Cities Shape Human Behavior", category: "Sociology", summary: "Urban design influences mood, behavior, and identity." },
+      { title: "The Myth of Multitasking", category: "Productivity", summary: "Why focusing beats juggling tasks." },
+      { title: "Rewilding the Future", category: "Environment", summary: "Letting nature reclaim what industry took." },
+      { title: "Designing for Digital Wellbeing", category: "Technology", summary: "Can design protect our attention and mental health?" },
+      { title: "The Language of Influence", category: "Communication", summary: "Subtle ways words shape perception." },
+      { title: "What Makes a Story Universal?", category: "Writing", summary: "Common threads in powerful storytelling." },
+      { title: "The Science of Serendipity", category: "Science", summary: "Why discovery is part luck, part insight." },
+      { title: "Minimalism Beyond Aesthetics", category: "Lifestyle", summary: "The deeper benefits of simplifying." },
+      { title: "Curiosity as a Creative Superpower", category: "Creativity", summary: "Curiosity unlocks innovation and depth." },
+      { title: "Digital Identity in the Age of AI", category: "Technology", summary: "How we evolve alongside intelligent systems." },
+      { title: "The Quiet Power of Introverts", category: "Psychology", summary: "Rethinking social energy and strength." },
+      { title: "How to Think in Systems", category: "Critical Thinking", summary: "Spotting patterns and feedback loops." },
+      { title: "Poetry in a Noisy World", category: "Writing", summary: "Finding calm and meaning through verse." },
+      { title: "The Case for Boredom", category: "Mental Health", summary: "Stillness as a spark for creativity." },
+      { title: "Reclaiming Attention in the Attention Economy", category: "Society", summary: "Protecting your focus from digital overload." },
+      { title: "What Makes a Place Feel Like Home?", category: "Philosophy", summary: "Belonging, space, and memory." },
+      { title: "The Ethics of Automation", category: "Technology", summary: "What do we risk by replacing humans?" },
+      { title: "Writing as Thinking", category: "Writing", summary: "Clarity emerges through words." },
+      { title: "Why We Love Maps", category: "Culture", summary: "Exploring the world and ourselves." }
+    ];
+
+    const tabsContainer = document.getElementById('tabs');
+    const cardsContainer = document.getElementById('cards');
+
+    const categories = ['All', ...new Set(articles.map(a => a.category))];
+
+    function renderTabs(active = 'All') {
+      tabsContainer.innerHTML = '';
+      categories.forEach(cat => {
+        const button = document.createElement('button');
+        button.className = 'tab-button' + (cat === active ? ' active' : '');
+        button.innerText = cat;
+        button.onclick = () => {
+          renderTabs(cat);
+          renderCards(cat);
+        };
+        tabsContainer.appendChild(button);
+      });
+    }
+
+    function renderCards(category = 'All') {
+      cardsContainer.innerHTML = '';
+      const filtered = category === 'All' ? articles : articles.filter(a => a.category === category);
+      filtered.forEach(article => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-title">${article.title}</div>
+          <div class="card-summary">${article.summary}</div>
+          <div class="card-category">${article.category}</div>
+        `;
+        cardsContainer.appendChild(card);
+      });
+    }
+
+    renderTabs();
+    renderCards();
+  </script>
+
+</body>
+</html>
