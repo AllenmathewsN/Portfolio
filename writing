@@ -1,0 +1,164 @@
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+
+const articles = [
+  {
+    title: "The Psychology of Everyday Decisions",
+    category: "Psychology",
+    summary: "Explore the subtle science behind how we make choices, from what we eat to how we vote.",
+    story: "Every day, we make hundreds of decisions—some tiny, others life-changing. But what if most of them aren't as conscious as we think? From the layout of grocery stores to social pressure at a dinner table, this article uncovers the surprising forces that drive our daily choices."
+  },
+  {
+    title: "How Cities Shape Human Behavior",
+    category: "Sociology",
+    summary: "An insight into the urban environments that influence our moods, actions, and identities.",
+    story: "We often think we shape cities, but cities shape us too. The height of buildings, the width of sidewalks, the presence (or absence) of green spaces—all influence how we think, feel, and interact. This story walks through real-life urban designs that subtly guide human behavior."
+  },
+  {
+    title: "The Myth of Multitasking",
+    category: "Productivity",
+    summary: "A look at the brain's limits and why focusing on one task at a time is more effective.",
+    story: "Multitasking feels productive, but research says otherwise. In this article, we bust the multitasking myth and explain what actually happens in the brain when you try to juggle tasks—and how deep focus wins every time."
+  },
+  {
+    title: "Rewilding the Future",
+    category: "Environment",
+    summary: "Can letting nature reclaim landscapes reverse the damage of industrialization?",
+    story: "Across Europe and North America, rewilding projects are helping nature bounce back. Wolves reintroduced to Yellowstone, abandoned farmlands turning into forests—this story showcases how stepping back can sometimes be the most powerful environmental action."
+  },
+  {
+    title: "Designing for Digital Wellbeing",
+    category: "Technology",
+    summary: "Why tech design needs to prioritize human health and attention over engagement metrics.",
+    story: "Apps are designed to steal your attention. But a new wave of designers is asking: what if they helped protect it instead? This article explores the ethics and strategies of digital wellness design—from screen time controls to mindful notifications."
+  },
+  {
+    title: "The Language of Influence",
+    category: "Communication",
+    summary: "How rhetoric, tone, and word choice subtly guide conversations and decisions.",
+    story: "Words shape worlds. Whether in politics, advertising, or everyday conversation, subtle language cues can nudge people toward decisions. This piece analyzes how influencers, leaders, and even friends use language to persuade—often without us realizing."
+  },
+  {
+    title: "What Makes a Story Universal?",
+    category: "Writing",
+    summary: "A narrative deep dive into the shared structures behind timeless tales.",
+    story: "Why do stories like Cinderella appear in every culture? From the Hero’s Journey to archetypal struggles, this article explores why certain stories resonate across time and geography, uniting us through shared narrative DNA."
+  },
+  {
+    title: "The Science of Serendipity",
+    category: "Science",
+    summary: "Understanding the role of chance and observation in groundbreaking discoveries.",
+    story: "From penicillin to Post-it notes, many great discoveries started as mistakes. But what sets inventors apart is their ability to see value in the unexpected. This story explores how openness to the unknown can spark innovation."
+  },
+  {
+    title: "Minimalism Beyond Aesthetics",
+    category: "Lifestyle",
+    summary: "Why simplifying your life is about more than just clean design and fewer things.",
+    story: "Minimalism isn’t just a design trend—it’s a philosophy. This article dives into how decluttering your space and schedule can bring emotional clarity, financial freedom, and deeper joy."
+  },
+  {
+    title: "Curiosity as a Creative Superpower",
+    category: "Creativity",
+    summary: "Nurturing the curious mind in a world of answers and algorithms.",
+    story: "Curiosity is the engine of invention. Yet in a world flooded with quick answers, staying curious takes effort. This story celebrates the questions that lead to breakthroughs and why childlike wonder is a gift to hold onto."
+  },
+  {
+    title: "Digital Identity in the Age of AI",
+    category: "Technology",
+    summary: "Exploring how our online selves evolve with intelligent machines.",
+    story: "As AI tools curate our feeds and predict our desires, who are we online? This article unpacks the ways digital identity is shifting—from avatars to algorithms—and what it means for self-expression and authenticity."
+  },
+  {
+    title: "The Quiet Power of Introverts",
+    category: "Psychology",
+    summary: "Reframing introversion as a strength, not a social flaw.",
+    story: "Introverts are often misunderstood in a loud world. But quiet doesn’t mean weak. This article showcases the strengths of introspection, deep thinking, and solitude—and how introverts are powerful in their own right."
+  },
+  {
+    title: "How to Think in Systems",
+    category: "Critical Thinking",
+    summary: "A beginner’s guide to seeing the hidden patterns behind problems.",
+    story: "Most problems aren’t linear—they’re part of systems. This story teaches you how to spot feedback loops, delays, and unintended consequences so you can think more holistically about challenges."
+  },
+  {
+    title: "Poetry in a Noisy World",
+    category: "Writing",
+    summary: "Why poetry still matters in an era of content overload.",
+    story: "In an age of scrolling and soundbites, poetry remains a still space. This article defends verse as a vessel for emotion, truth, and imagination—one that cuts through the noise with elegance."
+  },
+  {
+    title: "The Case for Boredom",
+    category: "Mental Health",
+    summary: "How idle moments are fertile ground for insight and creativity.",
+    story: "We fear boredom—but it’s a hidden ally. This story argues that downtime isn’t wasted time. Instead, it’s where creativity begins, insight brews, and your brain finds space to breathe."
+  },
+  {
+    title: "Reclaiming Attention in the Attention Economy",
+    category: "Society",
+    summary: "Fighting distraction in a world designed to steal your focus.",
+    story: "Our attention is under siege. From endless notifications to auto-play videos, tech is designed to keep us hooked. This article offers strategies to reclaim your focus and protect your mental space."
+  },
+  {
+    title: "What Makes a Place Feel Like Home?",
+    category: "Philosophy",
+    summary: "Exploring belonging, memory, and architecture in the spaces we inhabit.",
+    story: "Home isn’t just a location—it’s a feeling. This story explores how architecture, memory, and personal rituals create that deep sense of belonging we call home."
+  },
+  {
+    title: "The Ethics of Automation",
+    category: "Technology",
+    summary: "Who decides when machines replace human decisions—and what’s at stake?",
+    story: "Automation promises efficiency, but at what cost? This article explores the moral dilemmas of replacing human labor and judgment with algorithms—and how we can balance progress with ethics."
+  },
+  {
+    title: "Writing as Thinking",
+    category: "Writing",
+    summary: "The discipline of shaping unclear ideas into clear narratives.",
+    story: "Good writing is clear thinking made visible. This article makes the case that writing isn’t just for communication—it’s a powerful tool for discovering what you truly believe."
+  },
+  {
+    title: "Why We Love Maps",
+    category: "Culture",
+    summary: "A fascination with charts, symbols, and the desire to make the world legible.",
+    story: "Maps don’t just show where we are—they reveal how we see the world. This story explores the enduring appeal of maps, from ancient scrolls to GPS, and how they help us navigate both places and ideas."
+  }
+];
+
+export default function WritingPortfolio() {
+  const categories = ["All", ...new Set(articles.map((a) => a.category))];
+
+  return (
+    <div className="p-6 max-w-5xl mx-auto">
+      <h1 className="text-4xl font-bold mb-6 text-center">My Writing Portfolio</h1>
+      <Tabs defaultValue="All" className="w-full">
+        <TabsList className="overflow-x-auto whitespace-nowrap">
+          {categories.map((cat) => (
+            <TabsTrigger key={cat} value={cat}>
+              {cat}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        {categories.map((cat) => (
+          <TabsContent key={cat} value={cat}>
+            <div className="grid md:grid-cols-2 gap-4 mt-4">
+              {articles
+                .filter((a) => cat === "All" || a.category === cat)
+                .map((article, i) => (
+                  <Card key={i} className="hover:shadow-xl transition-shadow">
+                    <CardContent className="p-4">
+                      <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
+                      <p className="text-gray-600 mb-2">{article.summary}</p>
+                      <p className="text-sm text-gray-800">{article.story}</p>
+                      <p className="mt-2 text-sm text-right italic text-gray-400">{article.category}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+            </div>
+          </TabsContent>
+        ))}
+      </Tabs>
+    </div>
+  );
+}
